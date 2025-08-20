@@ -1,0 +1,98 @@
+Build a premium, mobile-first one-page landing site for “LevyLock™” using:
+- Stack: Vite + React + TypeScript + TailwindCSS
+- UI: shadcn/ui (Button, Card, Input, Textarea, Dialog, Accordion), lucide-react icons
+- Form: react-hook-form + zod validation
+- Animations: framer-motion (subtle, tasteful)
+- SEO: proper <title>, meta description, Open Graph/Twitter tags, JSON-LD (ProfessionalService)
+
+Design vibe:
+- Luxury, clean: ivory/black with soft gold accents (#c8a96a)
+- Inter font, generous spacing, rounded-2xl cards, soft shadows
+- Minimal stock imagery; prefer iconography and tasteful gradients
+
+Files to generate:
+- index.html (Vite mount + SEO tags)
+- src/main.tsx, src/App.tsx
+- src/components/: Topbar, Hero, ProofStrip, HowItWorks, Calculator, Niches, ComplianceRibbon, FAQ, CTA, Footer, IntakeFormModal
+- src/lib/fee.ts (calculator logic; default feeRate = 0.35)
+- src/lib/validation.ts (zod schemas)
+- src/styles/globals.css (Tailwind base; include font import)
+- README.md (run + deploy + WordPress export notes)
+
+Page structure (single page):
+1) **Sticky Topbar**: logo text “LevyLock™” + CTA “Start Recovery”
+2) **Hero**:
+   - H1: “We Lock Their Assets. You Get Paid.”
+   - Sub: “No win, no fee. Wage garnishments, bank levies, liens — done for you.”
+   - Primary CTA opens intake modal; secondary CTA scrolls to “How It Works”
+3) **Proof strip badges**: “No Win, No Fee” · “Statewide Enforcement” · “Bank & Wage Garnishments” · “Fast Filings”
+4) **How It Works** (3 Cards):
+   - Locate & Lock Assets
+   - Enforce (Writs, Levies, Garnishments)
+   - You Get Paid (we collect 30–50% of recovered funds)
+5) **Calculator Card**:
+   - Slider input: $2,000–$100,000
+   - Shows “You could receive (est.)” after feeRate (35% example)
+   - Disclaimer: “Illustrative only”
+6) **Niches grid**: Contractors, Med Spas, Roofers, Cleaners, Landlords, Small Claims
+7) **Compliance ribbon**:
+   - “We are a judgment enforcement service, not a law firm. Availability varies by state. Services may involve assignment of judgment or authorized collections activity. Nothing here is legal advice.”
+8) **FAQ** (Accordion: 6–7 items):
+   - timelines, contingency fee, wage/bank levy, docs needed, older judgments, business judgments, fee calc
+9) **CTA section**: “Ready to Get Paid?” buttons open intake modal
+10) **Footer**: © year, links to Terms/Privacy (placeholder routes)
+
+Intake modal (react-hook-form + zod):
+Fields (all required unless marked optional):
+- name, email, phone
+- judgmentAmount (number, min 1)
+- courtCountyState (string)
+- caseNumber (string)
+- judgmentYear (number; 1900–2100)
+- debtorName (optional)
+- notes (optional)
+- file upload (accept .pdf/.jpg/.jpeg/.png; multiple; 10MB each; client-side size check)
+
+Submission:
+- POST to Web3Forms by default (https://api.web3forms.com/submit)
+- Include hidden input for access_key (comment clearly where to paste it)
+- Success state: swap modal content for success card with checklist (Keep paperwork; Gather employer/bank info; Watch email/phone)
+- Failure: toast-style error
+
+Accessibility:
+- Dialog with focus trap, ESC close, aria labels
+- Buttons have discernible text
+- Form errors announced
+
+Interactions:
+- Smooth scroll to anchors
+- Calculator updates live with currency formatting
+- Light motion on section reveal; no excessive parallax
+
+Tailwind theme notes:
+- Colors via CSS vars or Tailwind config: bg-[#0b0b0b], text-gray-100, neutral gold accent #c8a96a
+- Cards rounded-2xl, border, shadow-sm
+- Buttons: solid gold primary, subtle ghost secondary
+
+SEO:
+- `<title>LevyLock™ — We Lock Their Assets. You Get Paid.</title>`
+- `<meta name="description" content="No win, no fee judgment enforcement. Wage garnishments, bank levies, liens — done for you.">`
+- OG/Twitter tags with default image placeholder
+- JSON-LD: ProfessionalService with areaServed “United States” and serviceType “Judgment Enforcement”
+
+README must include:
+- How to run: `npm i && npm run dev`
+- Where to paste Web3Forms access key
+- How to export/copy into WordPress:
+  - Option A: paste rendered HTML into a Custom HTML block + enqueue CSS/JS
+  - Option B: use a plugin like “Insert Headers and Footers” for script + Additional CSS
+  - Option C: export build (`npm run build`) and upload assets, link by absolute URL
+- Where to change feeRate in `src/lib/fee.ts`
+
+Copy to use verbatim:
+- **Hero H1**: “We Lock Their Assets. You Get Paid.”
+- **Subheader**: “No win, no fee. Wage garnishments, bank levies, liens — done for you.”
+- **Primary buttons**: “Start Recovery”, “Free Case Check”
+- **Compliance text** exactly as defined above.
+
+Deliver clean, lint-free code. Keep dependencies only as listed. No placeholder lorem; ship the actual copy above.
